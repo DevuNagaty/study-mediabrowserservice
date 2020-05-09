@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mediaItemFragment">
+
+    <fragment
+        android:id="@+id/mediaItemFragment"
+        android:name="com.gmail.devu.study.mediabrowserservice.ui.MediaItemFragment"
+        android:label="fragment_media_item"
+        tools:layout="@layout/fragment_media_item" >
+        <action
+            android:id="@+id/action_mediaItemFragment_self"
+            app:destination="@id/mediaItemFragment" />
+        <action
+            android:id="@+id/action_mediaItemFragment_to_mediaPlaybackFragment"
+            app:destination="@id/mediaPlaybackFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediaPlaybackFragment"
+        android:name="com.gmail.devu.study.mediabrowserservice.ui.MediaPlaybackFragment"
+        android:label="fragment_media_playback"
+        tools:layout="@layout/fragment_media_playback" />
+</navigation>
