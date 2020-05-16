@@ -30,7 +30,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
     private lateinit var mediaSessionConnector: MediaSessionConnector
 
     private val exoPlayer: ExoPlayer by lazy {
-        ExoPlayerFactory.newSimpleInstance(this).apply {
+        SimpleExoPlayer.Builder(this).build().apply {
             val attributes = AudioAttributes.Builder()
                 .setContentType(C.CONTENT_TYPE_MUSIC)
                 .setUsage(C.USAGE_MEDIA)
@@ -160,8 +160,7 @@ class MediaPlaybackService : MediaBrowserServiceCompat() {
         ): MediaDescriptionCompat {
             return player.currentTimeline.getWindow(
                 windowIndex,
-                window,
-                true
+                window
             ).tag as MediaDescriptionCompat
         }
     }

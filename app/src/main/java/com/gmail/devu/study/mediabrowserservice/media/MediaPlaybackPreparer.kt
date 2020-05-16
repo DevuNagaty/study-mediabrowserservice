@@ -26,12 +26,12 @@ class MediaPlaybackPreparer(
                 PlaybackStateCompat.ACTION_PREPARE_FROM_SEARCH or
                 PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
 
-    override fun onPrepare() {
+    override fun onPrepare(playWhenReady: Boolean) {
         Log.v(TAG, "onPrepare()")
     }
 
-    override fun onPrepareFromMediaId(mediaId: String?, extras: Bundle?) {
-        Log.v(TAG, "onPrepareFromMediaId(%s)".format(mediaId))
+    override fun onPrepareFromMediaId(mediaId: String, playWhenReady: Boolean, extras: Bundle) {
+        Log.v(TAG, "onPrepareFromMediaId(%s, %b)".format(mediaId, playWhenReady))
 
         val metadataList: List<MediaMetadataCompat> = DummyMedia.ITEMS
         val mediaSource = metadataList.toMediaSource(dataSourceFactory)
@@ -39,20 +39,21 @@ class MediaPlaybackPreparer(
 
         exoPlayer.prepare(mediaSource)
         exoPlayer.seekTo(initialWindowIndex, 0)
+        exoPlayer.setPlayWhenReady(playWhenReady)
     }
 
-    override fun onPrepareFromSearch(query: String?, extras: Bundle?) {
+    override fun onPrepareFromSearch(query: String, playWhenReady: Boolean, extras: Bundle) {
         Log.v(TAG, "onPrepareFromSearch(%s)".format(query))
     }
 
-    override fun onPrepareFromUri(uri: Uri?, extras: Bundle?) {
+    override fun onPrepareFromUri(uri: Uri, playWhenReady: Boolean, extras: Bundle) {
         Log.v(TAG, "onPrepareFromUri(%s)".format(uri))
     }
 
     override fun onCommand(
-        player: Player?,
-        controlDispatcher: ControlDispatcher?,
-        command: String?,
+        player: Player,
+        controlDispatcher: ControlDispatcher,
+        command: String,
         extras: Bundle?,
         cb: ResultReceiver?
     ): Boolean {
